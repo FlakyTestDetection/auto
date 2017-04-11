@@ -2,6 +2,12 @@ sudo: false
 
 language: java
 
+before_install:
+  - wget https://dl.dropboxusercontent.com/u/7897865/apache-maven-3.3.9.zip
+  - unzip -qq apache-maven-3.3.9.zip
+  - export M2_HOME=$PWD/apache-maven-3.3.9
+  - export PATH=$M2_HOME/bin:$PATH
+
 install:
   - mvn -B -U -f build-pom.xml dependency:go-offline test clean --quiet --fail-never -DskipTests=true
 
@@ -17,9 +23,9 @@ env:
   - secure: "s5V9d8MKl7ZHqCxuYLljLSD4sp9KLtYkk9hVxEPqCLAi4zA70WkX9h+GZI1gAOpcavomfrWcgSDT2ZReiuNpwx7OtczdS4zB+s6mo4F598iRs4bhSLiPT+Hzvx6BSwf1ZKZTYEhrUPGmKOp2T29AxMV7D0Q+P7n574ubvpUuZmA="
   - secure: "T24JAd60zthkeLBmenvZn6+qI43uvfuLwVb70Ljhbc19XDYEZV4Zm/kaafsisP5+F6kV4GjFaT+NCq2sJlwvPSMMRvU1JJgmNVh8TmtswkC/PHKonkMkOsj2KmFP0RRSPdvQv2NrSguZUq8mg+2pvnPO0qoPg4VeIODPGtAxNb8="
 
-after_success:
-  - util/generate-latest-docs.sh
-  - util/publish-snapshot-on-commit.sh
+#after_success:
+#  - util/generate-latest-docs.sh
+# - util/publish-snapshot-on-commit.sh
 
 branches:
   only:
